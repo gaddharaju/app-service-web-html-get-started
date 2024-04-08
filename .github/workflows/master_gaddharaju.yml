@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Update to use Node.js version 20
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
@@ -23,14 +28,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: |
-          cd path/to/your/dotnet/project
-          dotnet build --configuration Release
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: |
-          cd path/to/your/dotnet/project
-          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -38,13 +39,12 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
-
   check_node_js_version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 'v20.12.1'
 
 
   deploy:
