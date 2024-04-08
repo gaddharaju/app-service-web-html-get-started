@@ -39,6 +39,14 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
+  check_node_js_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+
   deploy:
     runs-on: windows-latest
     needs: build
